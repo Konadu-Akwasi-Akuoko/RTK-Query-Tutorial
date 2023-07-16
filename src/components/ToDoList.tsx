@@ -1,11 +1,13 @@
 "use client";
-// add imports
+import { useGetToDosQuery } from "@/api/apiSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faUpload } from "@fortawesome/free-solid-svg-icons";
 import { SyntheticEvent, useState } from "react";
 
 const TodoList = () => {
   const [newTodo, setNewTodo] = useState("");
+
+  
 
   const handleSubmit = (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
     e.preventDefault();

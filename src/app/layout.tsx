@@ -1,6 +1,9 @@
+import { ApiProvider } from "@reduxjs/toolkit/dist/query/react";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
+import { apiSlice } from "@/api/apiSlice";
+import ApiProviderClient from "@/components/providers/ApiProviderClient";
 
 const nunito = Nunito({ subsets: ["latin"], display: "swap" });
 
@@ -16,7 +19,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={nunito.className}>{children}</body>
+      <body className={nunito.className}>
+        <ApiProviderClient>{children}</ApiProviderClient>
+      </body>
     </html>
   );
 }
