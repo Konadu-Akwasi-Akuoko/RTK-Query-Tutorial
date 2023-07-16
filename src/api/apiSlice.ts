@@ -5,7 +5,7 @@ export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5050" }),
   endpoints: (builder) => ({
-    getToDos: builder.query({
+    getToDos: builder.query<ToDo[], void>({
       query: () => ({ url: "/todos" }),
     }),
   }),

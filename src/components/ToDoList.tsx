@@ -3,11 +3,18 @@ import { useGetToDosQuery } from "@/api/apiSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faUpload } from "@fortawesome/free-solid-svg-icons";
 import { SyntheticEvent, useState } from "react";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/dist/query";
 
 const TodoList = () => {
   const [newTodo, setNewTodo] = useState("");
 
-  
+  const {
+    data: todos,
+    isLoading,
+    isSuccess,
+    isError,
+    error,
+  } = useGetToDosQuery();
 
   const handleSubmit = (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
     e.preventDefault();
@@ -34,7 +41,13 @@ const TodoList = () => {
   );
 
   let content;
-  // Define conditional content
+  if (isLoading) {
+    content = <p>Loading...</p>;
+  } else if (isSuccess) {
+    content = JSON.stringify(todos);
+  } else if (isError) {
+    content = <p>Error loading</p>;
+  }
 
   return (
     <main>
