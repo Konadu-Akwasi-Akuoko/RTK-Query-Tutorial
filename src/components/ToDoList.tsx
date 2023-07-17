@@ -41,6 +41,7 @@ const TodoList = () => {
   const handleSubmit = (e: SyntheticEvent<HTMLFormElement, SubmitEvent>) => {
     e.preventDefault();
     //addTodo
+    addToDo({ userId: 45, title: newTodo, completed: false });
     setNewTodo("");
   };
 
@@ -66,7 +67,28 @@ const TodoList = () => {
   if (isLoading) {
     content = <p>Loading...</p>;
   } else if (isSuccess) {
-    content = JSON.stringify(todos);
+    // content = JSON.stringify(todos);
+    content = todos.map((todo) => {
+      //JSON.stringify(todos)
+      return (
+        <article key={todo.id}>
+          <div className="todo">
+            <input
+              type="checkbox"
+              checked={todo.completed}
+              id={String(todo.id)}
+              onChange={() =>
+                updateToDo({ ...todo, completed: !todo.completed })
+              }
+            />
+            <label htmlFor={String(todo.id)}>{todo.title}</label>
+          </div>
+          <button className="trash" onClick={() => deleteToDo({ id: todo.id })}>
+            <FontAwesomeIcon icon={faTrash} />
+          </button>
+        </article>
+      );
+    });
   } else if (isError) {
     console.log(error);
     content = <p>{"Error: " + error}</p>;
