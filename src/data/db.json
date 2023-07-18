@@ -977,12 +977,6 @@
       "title": "New todo!",
       "completed": false,
       "id": 201
-    },
-    {
-      "userId": 45,
-      "title": "is it that slow",
-      "completed": false,
-      "id": 206
     }
   ]
 }
