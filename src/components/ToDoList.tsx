@@ -10,9 +10,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faUpload } from "@fortawesome/free-solid-svg-icons";
 import { SyntheticEvent, useState } from "react";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/dist/query";
+import { useSelector } from "react-redux";
+import { selectTextBox, setTextBox } from "@/api/textboxSlice";
+import { store } from "@/api/store";
 
 const TodoList = () => {
-  const [newTodo, setNewTodo] = useState("");
+  const newTodo = useSelector(selectTextBox);
 
   const {
     data: todos,
@@ -42,7 +45,7 @@ const TodoList = () => {
     e.preventDefault();
     //addTodo
     addToDo({ userId: 45, title: newTodo, completed: false });
-    setNewTodo("");
+    store.dispatch(setTextBox(""));
   };
 
   const newItemSection = (
@@ -53,7 +56,7 @@ const TodoList = () => {
           type="text"
           id="new-todo"
           value={newTodo}
-          onChange={(e) => setNewTodo(e.target.value)}
+          onChange={(e) => store.dispatch(setTextBox(e.target.value))}
           placeholder="Enter new todo"
         />
       </div>
