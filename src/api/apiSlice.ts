@@ -4,7 +4,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 // `apiSlice` is an RTK Query API slice created using the `createApi` function.
 export const apiSlice = createApi({
   // `reducerPath` specifies the key in the Redux store where the API slice's data will be stored.
-  reducerPath: "api",
+  reducerPath: "todosApi",
   // `baseQuery` specifies the base query function to use for fetching data from the server.
   // In this case, we are using `fetchBaseQuery` with the `baseUrl` set to `"http://localhost:5050"`.
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5050" }),
@@ -87,3 +87,6 @@ export const {
   useUpdateToDoMutation,
   useDeleteToDoMutation,
 } = apiSlice;
+
+// apiSlice.middleware
+// apiSlice.reducer
