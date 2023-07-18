@@ -39,8 +39,14 @@ export const apiSlice = createApi({
         return response.status;
       },
     }),
+    // The first type parameter, `ToDo`, specifies the type of data that will be returned by the mutation.
+    // The second type parameter, `Partial<ToDo> & Pick<ToDo, "title">`, specifies the type of the argument that will be passed to the mutation.
+    // `Partial<ToDo>` makes all properties of the `ToDo` type optional.
+    // `Pick<ToDo, "title">` picks only the `"title"` property from the `ToDo` type.
+    // The `&` symbol combines these two types using an intersection type.
+    // This means that the argument passed to the `addToDo` mutation must be an object with an optional subset of properties from the `ToDo` type, as well as a required `"title"` property.
     // `addToDo` is a mutation endpoint that adds a new ToDo to the server.
-    addToDo: builder.mutation<any, Partial<ToDo> & Pick<ToDo, "title">>({
+    addToDo: builder.mutation<ToDo, Partial<ToDo> & Pick<ToDo, "title">>({
       // The query function specifies how to construct the request to add a new ToDo to the server.
       query: (todo) => ({
         url: "/todos",
