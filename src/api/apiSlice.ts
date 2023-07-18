@@ -4,9 +4,13 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5050" }),
+  tagTypes: ["Todos"],
   endpoints: (builder) => ({
     getToDos: builder.query<ToDo[], void>({
       query: () => ({ url: "/todos" }),
+      transformResponse: (response: ToDo[], meta, args) =>
+        response.sort((a, b) => b.id - a.id),
+      providesTags: ["Todos"],
     }),
     getToDosTitle: builder.query<string[], void>({
       query: () => ({ url: "/todos" }),
@@ -33,6 +37,7 @@ export const apiSlice = createApi({
         method: "POST",
         body: todo,
       }),
+      invalidatesTags: ["Todos"],
     }),
     updateToDo: builder.mutation<ToDo, ToDo>({
       query: (todo) => ({
@@ -40,13 +45,15 @@ export const apiSlice = createApi({
         method: "PATCH",
         body: todo,
       }),
+      invalidatesTags: ["Todos"],
     }),
     deleteToDo: builder.mutation<ToDo, Pick<ToDo, "id">>({
       query: (todoId) => ({
-        url: `/todos/${todoId}`,
+        url: `/todos/${todoId.id}`,
         method: "DELETE",
         body: todoId,
       }),
+      invalidatesTags: ["Todos"],
     }),
   }),
 });
