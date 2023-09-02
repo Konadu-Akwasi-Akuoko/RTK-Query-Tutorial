@@ -14,7 +14,7 @@ export const apiSlice = createApi({
   endpoints: (builder) => ({
     // `getToDos` is a query endpoint that fetches a list of ToDos from the server.
     getToDos: builder.query<ToDo[], void>({
-      // The query function specifies how to construct the request to fetch data from the server.
+      // The query function specifies how to construct the request to fetch data fruom the server.
       query: () => ({ url: "/todos" }),
       // The `transformResponse` function allows you to transform the response data before it is stored in the cache.
       // In this case, we are sorting the ToDos by their `id` in descending order.
